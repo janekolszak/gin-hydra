@@ -13,6 +13,8 @@ go get github.com/janekolszak/gin-hydra
 import (
     "github.com/gin-gonic/gin"
     "github.com/ory-am/hydra/firewall"
+  	hydra "github.com/ory-am/hydra/sdk"
+
     gh "go get github.com/janekolszak/gin-hydra"
 
 )
@@ -23,6 +25,20 @@ func handler(c *gin.Context) {
 }
 
 func main(){
+	// Initialize Hydra and gin-hydra
+	hc, err := hydra.Connect(
+		hydra.ClientID("..."),
+		hydra.ClientSecret("..."),
+		hydra.ClusterURL("..."),
+	)
+
+	if err != nil {
+		panic(err)
+	}
+
+	ginhydra.Init(hc)
+
+	// Use the middleware
  	router := gin.Default()
 	router.GET("/", gh.ScopesRequired("scope1", "scope2"), handler)
 	router.Run()
