@@ -36,7 +36,7 @@ func main(){
 		panic(err)
 	}
 
-	ginhydra.Init(hc)
+	gh.Init(hc)
 
 	// Use the middleware
  	router := gin.Default()
