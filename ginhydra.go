@@ -16,7 +16,7 @@ func Init(hydraClient *hydra.Client) {
 
 func ScopesRequired(scopes ...string) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		ctx, err := hc.Warden.TokenValid(c, hc.Warden.TokenFromRequest(c.Request), scopes...)
+		ctx, err := hc.Introspection.IntrospectToken(c, hc.Warden.TokenFromRequest(c.Request), scopes...)
 		if err != nil {
 			c.Error(err)
 			c.Abort()
